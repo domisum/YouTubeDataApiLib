@@ -13,7 +13,10 @@ public class AuthorizedYouTubeDataApiClientSource
 	@Override
 	protected YouTube build(HttpRequestInitializer requestInitializer)
 	{
-		return new YouTube(new NetHttpTransport(), new JacksonFactory(), requestInitializer);
+		var builder = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), requestInitializer);
+		builder.setApplicationName("YouTubeDataApiLib");
+		
+		return builder.build();
 	}
 	
 }
