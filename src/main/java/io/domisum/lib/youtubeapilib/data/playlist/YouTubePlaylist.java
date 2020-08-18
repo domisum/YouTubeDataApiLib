@@ -12,13 +12,13 @@ public class YouTubePlaylist
 {
 	
 	@Getter
-	private final PlaylistSpecification spec;
+	private final YouTubePlaylistSpecification specification;
 	@Getter
 	private final String playlistId;
 	
 	
 	// GETTERS
-	public String getLink()
+	public String getUrl()
 	{
 		return "https://www.youtube.com/playlist?list="+playlistId;
 	}

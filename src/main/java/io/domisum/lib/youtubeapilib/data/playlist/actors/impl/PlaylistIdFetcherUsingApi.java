@@ -4,7 +4,7 @@ import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistListResponse;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.data.playlist.PlaylistSpecification;
+import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistSpecification;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistIdFetcher;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class PlaylistIdFetcherUsingApi
 	
 	// FETCH
 	@Override
-	public Optional<String> fetch(YouTubeApiCredentials credentials, PlaylistSpecification playlistSpecification)
+	public Optional<String> fetch(YouTubeApiCredentials credentials, YouTubePlaylistSpecification youTubePlaylistSpecification)
 			throws IOException
 	{
 		String nextPageToken = null;
@@ -38,7 +38,7 @@ public class PlaylistIdFetcherUsingApi
 		{
 			var response = fetchPlaylistPage(credentials, nextPageToken);
 			
-			var playlistIdOptional = extractPlaylist(response, playlistSpecification);
+			var playlistIdOptional = extractPlaylist(response, youTubePlaylistSpecification);
 			if(playlistIdOptional.isPresent())
 				return playlistIdOptional;
 			
@@ -66,7 +66,7 @@ public class PlaylistIdFetcherUsingApi
 		return playlistsListRequest.execute();
 	}
 	
-	private Optional<String> extractPlaylist(PlaylistListResponse response, PlaylistSpecification youTubePlaylistSpec)
+	private Optional<String> extractPlaylist(PlaylistListResponse response, YouTubePlaylistSpecification youTubePlaylistSpec)
 	{
 		for(var playlist : response.getItems())
 			if(doesPlaylistMatch(youTubePlaylistSpec, playlist))
@@ -81,7 +81,7 @@ public class PlaylistIdFetcherUsingApi
 	
 	
 	// CONDITION UTIL
-	private boolean doesPlaylistMatch(PlaylistSpecification youTubePlaylistSpec, Playlist playlist)
+	private boolean doesPlaylistMatch(YouTubePlaylistSpecification youTubePlaylistSpec, Playlist playlist)
 	{
 		var snippet = playlist.getSnippet();
 		return snippet.getTitle().equalsIgnoreCase(youTubePlaylistSpec.getTitle());

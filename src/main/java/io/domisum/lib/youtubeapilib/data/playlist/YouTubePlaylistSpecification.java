@@ -9,7 +9,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class PlaylistSpecification
+public class YouTubePlaylistSpecification
 {
 	
 	@Getter
