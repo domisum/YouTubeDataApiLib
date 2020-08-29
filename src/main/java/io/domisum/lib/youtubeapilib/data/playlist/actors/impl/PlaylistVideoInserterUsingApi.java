@@ -6,14 +6,14 @@ import com.google.api.services.youtube.model.PlaylistItemSnippet;
 import com.google.api.services.youtube.model.ResourceId;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.VideoIntoPlaylistInserter;
+import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoInserter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class VideoIntoPlaylistInserterUsingApi
-		implements VideoIntoPlaylistInserter
+public class PlaylistVideoInserterUsingApi
+		implements PlaylistVideoInserter
 {
 	
 	// REFERENCES

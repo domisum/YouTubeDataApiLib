@@ -7,7 +7,7 @@ import io.domisum.lib.auxiliumlib.util.math.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class YouTubeUploader
+abstract class YouTubeUploader
 {
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

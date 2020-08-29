@@ -5,7 +5,7 @@ import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 
 import java.io.IOException;
 
-public interface VideoIntoPlaylistInserter
+public interface PlaylistVideoInserter
 {
 	
 	void insert(YouTubeApiCredentials credentials, String playlistId, String videoId, InsertionPosition insertionPosition)
