@@ -2,6 +2,7 @@ package io.domisum.lib.youtubeapilib.data.playlist.actors.impl;
 
 import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistListResponse;
+import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistSpecification;
@@ -13,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class PlaylistIdFetcherUsingApi
 		implements PlaylistIdFetcher
 {

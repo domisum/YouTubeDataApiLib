@@ -5,6 +5,7 @@ import com.google.api.services.youtube.YouTube.Videos.Insert;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
+import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.data.PrivacyStatus;
 import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoUploader;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
@@ -14,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoUploaderUsingApi
 		extends YouTubeUploader
 		implements VideoUploader

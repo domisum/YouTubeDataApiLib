@@ -1,5 +1,6 @@
 package io.domisum.lib.youtubeapilib.data.video.actors.impl;
 
+import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoMetadataFetcherUsingApi
 		implements VideoMetadataFetcher
 {

@@ -1,5 +1,6 @@
 package io.domisum.lib.youtubeapilib.data.video.actors.impl;
 
+import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.video.VideoDoesNotExistException;
@@ -9,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 import java.time.Duration;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoDurationFetcherUsingApi
 		implements VideoDurationFetcher
 {
