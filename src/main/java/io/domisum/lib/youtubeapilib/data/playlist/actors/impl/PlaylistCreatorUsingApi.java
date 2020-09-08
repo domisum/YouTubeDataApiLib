@@ -7,6 +7,7 @@ import com.google.api.services.youtube.model.PlaylistStatus;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistSpecification;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistCreator;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class PlaylistCreatorUsingApi
-		implements PlaylistCreator
+	implements PlaylistCreator
 {
 	
 	// DEPENDENCIES
@@ -24,16 +25,17 @@ public class PlaylistCreatorUsingApi
 	
 	// UPLOAD
 	@Override
-	public String create(YouTubeApiCredentials credentials, YouTubePlaylistSpecification youTubePlaylistSpecification)
-			throws IOException
+	public YouTubePlaylistId create(YouTubeApiCredentials credentials, YouTubePlaylistSpecification youTubePlaylistSpecification)
+		throws IOException
 	{
 		var playlist = createRequestPlaylist(youTubePlaylistSpecification);
 		
 		var playlistsInsertRequest = createInsertRequest(credentials, playlist);
 		var response = playlistsInsertRequest.execute();
-		String playlistId = response.getId();
+		String playlistIdString = response.getId();
+		var youTubePlaylistId = YouTubePlaylistId.of(playlistIdString);
 		
-		return playlistId;
+		return youTubePlaylistId;
 	}
 	
 	private Playlist createRequestPlaylist(YouTubePlaylistSpecification youTubePlaylistSpec)
@@ -52,7 +54,7 @@ public class PlaylistCreatorUsingApi
 	}
 	
 	private Insert createInsertRequest(YouTubeApiCredentials credentials, Playlist playlist)
-			throws IOException
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		

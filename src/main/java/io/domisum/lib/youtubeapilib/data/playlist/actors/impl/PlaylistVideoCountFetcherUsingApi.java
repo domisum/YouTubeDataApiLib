@@ -5,6 +5,7 @@ import io.domisum.lib.auxiliumlib.annotations.API;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.playlist.PlaylistDoesNotExistException;
+import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoCountFetcher;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 @API
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class PlaylistVideoCountFetcherUsingApi
-		implements PlaylistVideoCountFetcher
+	implements PlaylistVideoCountFetcher
 {
 	
 	// REFERENCES
@@ -22,14 +23,14 @@ public class PlaylistVideoCountFetcherUsingApi
 	
 	// FETCH
 	@Override
-	public int fetchVideoCount(YouTubeApiCredentials credentials, String playlistId)
-			throws IOException
+	public int fetchVideoCount(YouTubeApiCredentials credentials, YouTubePlaylistId youTubePlaylistId)
+		throws IOException
 	{
 		
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		
 		var request = youTubeDataApiClient.playlists().list("contentDetails");
-		request.setId(playlistId);
+		request.setId(youTubePlaylistId.toString());
 		var response = request.execute();
 		
 		if(response.getItems().isEmpty())

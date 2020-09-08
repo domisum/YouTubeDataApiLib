@@ -7,6 +7,7 @@ import com.google.api.services.youtube.model.ResourceId;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoInserter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class PlaylistVideoInserterUsingApi
-		implements PlaylistVideoInserter
+	implements PlaylistVideoInserter
 {
 	
 	// REFERENCES
@@ -23,23 +24,23 @@ public class PlaylistVideoInserterUsingApi
 	
 	// UPLOAD
 	@Override
-	public void insert(YouTubeApiCredentials credentials, String playlistId, String videoId, InsertionPosition insertionPosition)
-			throws IOException
+	public void insert(YouTubeApiCredentials credentials, YouTubePlaylistId youTubePlaylistId, String videoId, InsertionPosition insertionPosition)
+		throws IOException
 	{
-		var playlistItem = createPlaylistItem(playlistId, videoId, insertionPosition);
+		var playlistItem = createPlaylistItem(youTubePlaylistId, videoId, insertionPosition);
 		var insertRequest = createInsertRequest(credentials, playlistItem);
 		
 		insertRequest.execute();
 	}
 	
-	private PlaylistItem createPlaylistItem(String playlistId, String videoId, InsertionPosition insertionPosition)
+	private PlaylistItem createPlaylistItem(YouTubePlaylistId youTubePlaylistId, String videoId, InsertionPosition insertionPosition)
 	{
 		var resourceId = new ResourceId();
 		resourceId.set("kind", "youtube#video");
 		resourceId.set("videoId", videoId);
 		
 		var snippet = new PlaylistItemSnippet();
-		snippet.setPlaylistId(playlistId);
+		snippet.setPlaylistId(youTubePlaylistId.toString());
 		snippet.setResourceId(resourceId);
 		if(insertionPosition == InsertionPosition.FIRST)
 			snippet.setPosition(0L);
@@ -50,7 +51,7 @@ public class PlaylistVideoInserterUsingApi
 	}
 	
 	private Insert createInsertRequest(YouTubeApiCredentials credentials, PlaylistItem playlistItem)
-			throws IOException
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		

@@ -5,6 +5,7 @@ import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoIdsFetcher;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class PlaylistVideoIdsFetcherUsingApi
-		implements PlaylistVideoIdsFetcher
+	implements PlaylistVideoIdsFetcher
 {
 	
 	// CONSTANTS
@@ -26,19 +27,19 @@ public class PlaylistVideoIdsFetcherUsingApi
 	
 	// UPLOAD
 	@Override
-	public List<String> fetch(YouTubeApiCredentials credentials, String playlistId, Integer maxNrOfVideos)
-			throws IOException
+	public List<String> fetch(YouTubeApiCredentials credentials, YouTubePlaylistId youTubePlaylistId, Integer maxNrOfVideos)
+		throws IOException
 	{
 		int maxNrOfVideosInt = maxNrOfVideos == null ? Integer.MAX_VALUE : maxNrOfVideos;
 		
-		var listRequest = createBaseRequest(credentials, playlistId);
+		var listRequest = createBaseRequest(credentials, youTubePlaylistId);
 		var videoIds = fetchVideoIdsUsingRequest(listRequest, maxNrOfVideosInt);
 		
 		return videoIds;
 	}
 	
 	private List<String> fetchVideoIdsUsingRequest(PlaylistItems.List listRequest, int maxNrOfVideos)
-			throws IOException
+		throws IOException
 	{
 		PlaylistItemListResponse response;
 		var videoIds = new ArrayList<String>();
@@ -59,14 +60,14 @@ public class PlaylistVideoIdsFetcherUsingApi
 		return videoIds;
 	}
 	
-	private PlaylistItems.List createBaseRequest(YouTubeApiCredentials credentials, String playlistId)
-			throws IOException
+	private PlaylistItems.List createBaseRequest(YouTubeApiCredentials credentials, YouTubePlaylistId youTubePlaylistId)
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		
 		var listRequest = youTubeDataApiClient.playlistItems().list("snippet,contentDetails");
 		listRequest.setMaxResults(MAX_RESULTS_LIMIT);
-		listRequest.setPlaylistId(playlistId);
+		listRequest.setPlaylistId(youTubePlaylistId.toString());
 		
 		return listRequest;
 	}
