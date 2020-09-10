@@ -17,8 +17,8 @@ import java.io.IOException;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoUploaderUsingApi
-		extends YouTubeUploader
-		implements VideoUploader
+	extends YouTubeUploader
+	implements VideoUploader
 {
 	
 	// DEPENDENCIES
@@ -28,7 +28,7 @@ public class VideoUploaderUsingApi
 	// UPLOAD
 	@Override
 	public String upload(YouTubeApiCredentials credentials, YouTubeVideo youTubeVideo, PrivacyStatus privacyStatus)
-			throws IOException
+		throws IOException
 	{
 		logger.info("Preparing to upload '{}' to YouTube ({})", youTubeVideo, privacyStatus);
 		
@@ -83,12 +83,12 @@ public class VideoUploaderUsingApi
 	
 	// UPLOAD REQUEST
 	private Insert createUploadRequest(YouTubeApiCredentials credentials, InputStreamContent videoContent, Video videoToUpload)
-			throws IOException
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		
 		var videoInsert = youTubeDataApiClient.videos().insert("snippet,statistics,status", videoToUpload, videoContent);
-		configureMediaHttpUploader(videoInsert.getMediaHttpUploader(), videoContent.getLength());
+		configureMediaHttpUploader(videoInsert.getMediaHttpUploader());
 		return videoInsert;
 	}
 	

@@ -17,8 +17,8 @@ import java.io.IOException;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoThumbnailUploaderUsingApi
-		extends YouTubeUploader
-		implements VideoThumbnailUploader
+	extends YouTubeUploader
+	implements VideoThumbnailUploader
 {
 	
 	// DEPENDENCIES
@@ -28,7 +28,7 @@ public class VideoThumbnailUploaderUsingApi
 	// UPLOAD
 	@Override
 	public void uploadThumbnail(YouTubeApiCredentials credentials, String videoId, BufferedImage thumbnail)
-			throws IOException
+		throws IOException
 	{
 		logger.info("Preparing to upload thumbnail for video '{}'", videoId);
 		
@@ -63,19 +63,19 @@ public class VideoThumbnailUploaderUsingApi
 	
 	// REQUEST
 	private Set createApiRequest(YouTubeApiCredentials credentials, String videoId, InputStreamContent imageContent)
-			throws IOException
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		
 		var thumbnailSet = youTubeDataApiClient.thumbnails().set(videoId, imageContent);
-		configureMediaHttpUploader(thumbnailSet.getMediaHttpUploader(), imageContent.getLength());
+		configureMediaHttpUploader(thumbnailSet.getMediaHttpUploader());
 		return thumbnailSet;
 	}
 	
 	
 	// UTIL
 	private byte[] imageToByteArray(RenderedImage image, String imageFormat)
-			throws IOException
+		throws IOException
 	{
 		var outputStream = new ByteArrayOutputStream();
 		ImageIO.write(image, imageFormat, outputStream);

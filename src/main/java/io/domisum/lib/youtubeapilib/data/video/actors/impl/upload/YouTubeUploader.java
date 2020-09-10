@@ -3,9 +3,10 @@ package io.domisum.lib.youtubeapilib.data.video.actors.impl.upload;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import io.domisum.lib.auxiliumlib.exceptions.IncompleteCodeError;
-import io.domisum.lib.auxiliumlib.util.math.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 abstract class YouTubeUploader
 {
@@ -14,18 +15,18 @@ abstract class YouTubeUploader
 	
 	
 	// MEDIA HTTP UPLOADER
-	protected void configureMediaHttpUploader(MediaHttpUploader mediaHttpUploader, long uploadLength)
+	protected void configureMediaHttpUploader(MediaHttpUploader mediaHttpUploader)
 	{
-		mediaHttpUploader.setDirectUploadEnabled(false);
-		mediaHttpUploader.setProgressListener(getUploadProgressListener(uploadLength));
+		mediaHttpUploader.setProgressListener(getUploadProgressListener());
 	}
 	
-	private MediaHttpUploaderProgressListener getUploadProgressListener(long uploadSizeBytes)
+	private MediaHttpUploaderProgressListener getUploadProgressListener()
 	{
-		return ul->logUploadProgress(uploadSizeBytes, ul);
+		return this::logUploadProgress;
 	}
 	
-	private void logUploadProgress(long uploadSizeBytes, MediaHttpUploader ul)
+	private void logUploadProgress(MediaHttpUploader ul)
+		throws IOException
 	{
 		switch(ul.getUploadState())
 		{
@@ -34,10 +35,10 @@ abstract class YouTubeUploader
 				break;
 			case INITIATION_COMPLETE:
 				logger.info("Upload initiation complete");
-				logger.info("Upload in progress: {}", getProgressDisplay(ul.getNumBytesUploaded(), uploadSizeBytes));
+				logger.info("Upload in progress: {}%", ul.getProgress());
 				break;
 			case MEDIA_IN_PROGRESS:
-				logger.info("Upload in progress: {}", getProgressDisplay(ul.getNumBytesUploaded(), uploadSizeBytes));
+				logger.info("Upload in progress: {}%", ul.getProgress());
 				break;
 			case MEDIA_COMPLETE:
 				logger.info("Upload in progress: 100.0%");
@@ -49,12 +50,6 @@ abstract class YouTubeUploader
 			
 			default: throw new IncompleteCodeError();
 		}
-	}
-	
-	private String getProgressDisplay(long bytesUploaded, long uploadSizeBytes)
-	{
-		double progressPercent = ((double) bytesUploaded/uploadSizeBytes)*100;
-		return MathUtil.round(progressPercent, 1)+"%";
 	}
 	
 }
