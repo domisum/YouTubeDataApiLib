@@ -3,6 +3,7 @@ package io.domisum.lib.youtubeapilib.data.video.actors.impl.upload;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
 import com.google.api.client.googleapis.media.MediaHttpUploaderProgressListener;
 import io.domisum.lib.auxiliumlib.exceptions.IncompleteCodeError;
+import io.domisum.lib.auxiliumlib.util.math.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,10 +36,9 @@ abstract class YouTubeUploader
 				break;
 			case INITIATION_COMPLETE:
 				logger.info("Upload initiation complete");
-				logger.info("Upload in progress: {}%", ul.getProgress());
 				break;
 			case MEDIA_IN_PROGRESS:
-				logger.info("Upload in progress: {}%", ul.getProgress());
+				logger.info("Upload in progress: {}%", MathUtil.round(ul.getProgress()*100, 1));
 				break;
 			case MEDIA_COMPLETE:
 				logger.info("Upload in progress: 100.0%");
