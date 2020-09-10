@@ -1,12 +1,10 @@
 package io.domisum.lib.youtubeapilib.data.playlist.actors.impl;
 
-import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistListResponse;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
-import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistSpecification;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistIdFetcher;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -32,7 +30,7 @@ public class PlaylistIdFetcherUsingApi
 	
 	// FETCH
 	@Override
-	public Optional<YouTubePlaylistId> fetch(YouTubeApiCredentials credentials, YouTubePlaylistSpecification youTubePlaylistSpecification)
+	public Optional<YouTubePlaylistId> fetch(YouTubeApiCredentials credentials, String playlistTitle)
 		throws IOException
 	{
 		String nextPageToken = null;
@@ -40,16 +38,16 @@ public class PlaylistIdFetcherUsingApi
 		{
 			var response = fetchPlaylistPage(credentials, nextPageToken);
 			
-			var playlistIdOptional = extractPlaylist(response, youTubePlaylistSpecification);
+			var playlistIdOptional = extractPlaylist(response, playlistTitle);
 			if(playlistIdOptional.isPresent())
 				return playlistIdOptional;
 			
 			nextPageToken = response.getNextPageToken();
-			logger.debug("playlist wasn't contained in returned playlists, next page token: {}", nextPageToken);
+			logger.debug("Playlist wasn't contained in returned playlists, next page token: {}", nextPageToken);
 		}
 		while(nextPageToken != null);
 		
-		logger.debug("no next page token known, playlist doesn't exist");
+		logger.debug("No next page token known, playlist doesn't exist");
 		return Optional.empty();
 	}
 	
@@ -68,10 +66,10 @@ public class PlaylistIdFetcherUsingApi
 		return playlistsListRequest.execute();
 	}
 	
-	private Optional<YouTubePlaylistId> extractPlaylist(PlaylistListResponse response, YouTubePlaylistSpecification youTubePlaylistSpec)
+	private Optional<YouTubePlaylistId> extractPlaylist(PlaylistListResponse response, String playlistTitle)
 	{
 		for(var playlist : response.getItems())
-			if(doesPlaylistMatch(youTubePlaylistSpec, playlist))
+			if(playlist.getSnippet().getTitle().equals(playlistTitle))
 			{
 				String playlistIdString = playlist.getId();
 				var youTubePlaylistId = YouTubePlaylistId.of(playlistIdString);
@@ -81,16 +79,6 @@ public class PlaylistIdFetcherUsingApi
 			}
 		
 		return Optional.empty();
-	}
-	
-	
-	// CONDITION UTIL
-	private boolean doesPlaylistMatch(YouTubePlaylistSpecification youTubePlaylistSpec, Playlist playlist)
-	{
-		var snippet = playlist.getSnippet();
-		
-		boolean titlesMatch = snippet.getTitle().equalsIgnoreCase(youTubePlaylistSpec.getTitle());
-		return titlesMatch;
 	}
 	
 }
