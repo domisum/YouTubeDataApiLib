@@ -15,9 +15,14 @@ abstract class YouTubeUploader
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	
+	// CONSTANTS
+	private static final int UPLOAD_CHUNK_SIZE_BYTES = 128*1024*1024;
+	
+	
 	// MEDIA HTTP UPLOADER
 	protected void configureMediaHttpUploader(MediaHttpUploader mediaHttpUploader)
 	{
+		mediaHttpUploader.setChunkSize(UPLOAD_CHUNK_SIZE_BYTES);
 		mediaHttpUploader.setProgressListener(getUploadProgressListener());
 	}
 	
@@ -26,10 +31,10 @@ abstract class YouTubeUploader
 		return this::logUploadProgress;
 	}
 	
-	private void logUploadProgress(MediaHttpUploader ul)
+	private void logUploadProgress(MediaHttpUploader mediaHttpUploader)
 		throws IOException
 	{
-		switch(ul.getUploadState())
+		switch(mediaHttpUploader.getUploadState())
 		{
 			case INITIATION_STARTED:
 				logger.info("Upload initiation started");
@@ -38,7 +43,7 @@ abstract class YouTubeUploader
 				logger.info("Upload initiation complete");
 				break;
 			case MEDIA_IN_PROGRESS:
-				logger.info("Upload in progress: {}%", MathUtil.round(ul.getProgress()*100, 1));
+				logger.info("Upload in progress: {}%", MathUtil.round(mediaHttpUploader.getProgress()*100, 1));
 				break;
 			case MEDIA_COMPLETE:
 				logger.info("Upload in progress: 100.0%");
