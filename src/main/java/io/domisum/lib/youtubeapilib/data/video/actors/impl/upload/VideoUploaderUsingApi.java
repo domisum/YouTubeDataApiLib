@@ -6,11 +6,11 @@ import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
 import com.google.inject.Inject;
-import io.domisum.lib.youtubeapilib.data.PrivacyStatus;
-import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoUploader;
-import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
+import io.domisum.lib.youtubeapilib.data.PrivacyStatus;
 import io.domisum.lib.youtubeapilib.data.video.YouTubeVideo;
+import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoUploader;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;

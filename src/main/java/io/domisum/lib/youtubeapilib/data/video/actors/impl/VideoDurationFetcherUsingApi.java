@@ -1,8 +1,8 @@
 package io.domisum.lib.youtubeapilib.data.video.actors.impl;
 
 import com.google.inject.Inject;
-import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.data.video.VideoDoesNotExistException;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoDurationFetcher;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.Duration;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoDurationFetcherUsingApi
-		implements VideoDurationFetcher
+	implements VideoDurationFetcher
 {
 	
 	// DEPENDENCIES
@@ -22,7 +22,7 @@ public class VideoDurationFetcherUsingApi
 	// FETCH
 	@Override
 	public Duration fetch(YouTubeApiCredentials credentials, String videoId)
-			throws IOException
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		

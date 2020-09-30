@@ -3,7 +3,7 @@ package io.domisum.lib.youtubeapilib.data.video;
 import java.io.IOException;
 
 public class VideoDoesNotExistException
-		extends IOException
+	extends IOException
 {
 	
 	// INIT

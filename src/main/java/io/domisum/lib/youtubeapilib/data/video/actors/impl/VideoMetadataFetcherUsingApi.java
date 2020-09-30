@@ -1,19 +1,19 @@
 package io.domisum.lib.youtubeapilib.data.video.actors.impl;
 
 import com.google.inject.Inject;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
-import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.data.video.VideoCategory;
 import io.domisum.lib.youtubeapilib.data.video.VideoDoesNotExistException;
 import io.domisum.lib.youtubeapilib.data.video.YouTubeVideoMetadata;
+import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoMetadataFetcherUsingApi
-		implements VideoMetadataFetcher
+	implements VideoMetadataFetcher
 {
 	
 	// DEPENDENCIES
@@ -23,7 +23,7 @@ public class VideoMetadataFetcherUsingApi
 	// FETCH
 	@Override
 	public YouTubeVideoMetadata fetch(YouTubeApiCredentials credentials, String videoId)
-			throws IOException
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		

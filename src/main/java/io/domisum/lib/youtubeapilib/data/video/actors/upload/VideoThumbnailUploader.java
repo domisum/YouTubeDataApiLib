@@ -9,6 +9,6 @@ public interface VideoThumbnailUploader
 {
 	
 	void uploadThumbnail(YouTubeApiCredentials credentials, String videoId, BufferedImage thumbnail)
-			throws IOException;
+		throws IOException;
 	
 }

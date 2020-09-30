@@ -4,9 +4,9 @@ import com.google.api.services.youtube.YouTube.Videos.Update;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoStatus;
 import com.google.inject.Inject;
-import io.domisum.lib.youtubeapilib.data.PrivacyStatus;
-import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
+import io.domisum.lib.youtubeapilib.data.PrivacyStatus;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoPrivacyStatusSetter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class VideoPrivacyStatusSetterUsingApi
-		implements VideoPrivacyStatusSetter
+	implements VideoPrivacyStatusSetter
 {
 	
 	// DEPENDENCIES
@@ -24,14 +24,14 @@ public class VideoPrivacyStatusSetterUsingApi
 	// SET
 	@Override
 	public void setPrivacyStatus(YouTubeApiCredentials credentials, String videoId, PrivacyStatus privacyStatus)
-			throws IOException
+		throws IOException
 	{
 		var videosUpdateRequest = createRequest(credentials, videoId, privacyStatus);
 		videosUpdateRequest.execute();
 	}
 	
 	private Update createRequest(YouTubeApiCredentials credentials, String videoId, PrivacyStatus privacyStatus)
-			throws IOException
+		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 		

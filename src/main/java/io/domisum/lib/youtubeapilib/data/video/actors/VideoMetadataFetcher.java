@@ -9,6 +9,6 @@ public interface VideoMetadataFetcher
 {
 	
 	YouTubeVideoMetadata fetch(YouTubeApiCredentials credentials, String videoId)
-			throws IOException;
+		throws IOException;
 	
 }

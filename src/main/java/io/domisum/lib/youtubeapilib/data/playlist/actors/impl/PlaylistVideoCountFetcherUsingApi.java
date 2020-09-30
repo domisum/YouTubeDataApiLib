@@ -2,8 +2,8 @@ package io.domisum.lib.youtubeapilib.data.playlist.actors.impl;
 
 import com.google.inject.Inject;
 import io.domisum.lib.auxiliumlib.annotations.API;
-import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.data.playlist.PlaylistDoesNotExistException;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoCountFetcher;

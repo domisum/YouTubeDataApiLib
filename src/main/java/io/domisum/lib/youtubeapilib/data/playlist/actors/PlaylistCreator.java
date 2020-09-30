@@ -10,6 +10,6 @@ public interface PlaylistCreator
 {
 	
 	YouTubePlaylistId create(YouTubeApiCredentials credentials, YouTubePlaylistSpecification youTubePlaylistSpecification)
-			throws IOException;
+		throws IOException;
 	
 }

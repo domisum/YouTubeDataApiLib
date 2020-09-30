@@ -3,9 +3,9 @@ package io.domisum.lib.youtubeapilib.data.video.actors.impl.upload;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.youtube.YouTube.Thumbnails.Set;
 import com.google.inject.Inject;
-import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoThumbnailUploader;
-import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
+import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
+import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoThumbnailUploader;
 import lombok.RequiredArgsConstructor;
 
 import javax.imageio.ImageIO;

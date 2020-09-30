@@ -9,6 +9,6 @@ public interface VideoMetadataSetter
 {
 	
 	void setMetadata(YouTubeApiCredentials credentials, String videoId, YouTubeVideoMetadata metadata)
-			throws IOException;
+		throws IOException;
 	
 }
