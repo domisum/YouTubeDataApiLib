@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @RequiredArgsConstructor
 @ToString(includeFieldNames = false, exclude = {"videoStream"})
-public class YouTubeVideo
+public class YouTubeUploadVideo
 {
 	
 	@Getter
