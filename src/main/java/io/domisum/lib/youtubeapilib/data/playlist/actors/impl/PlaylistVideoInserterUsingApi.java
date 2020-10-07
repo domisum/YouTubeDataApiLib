@@ -22,7 +22,7 @@ public class PlaylistVideoInserterUsingApi
 	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
 	
 	
-	// UPLOAD
+	// INSERT
 	@Override
 	public void insert(YouTubeApiCredentials credentials, YouTubePlaylistId youTubePlaylistId, String videoId, InsertionPosition insertionPosition)
 		throws IOException

@@ -7,12 +7,14 @@ import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistIdFetcher;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoCountFetcher;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoIdsFetcher;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoInserter;
+import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoRemover;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistCreatorUsingApi;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistDeleterUsingApi;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistIdFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoCountFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoIdsFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoInserterUsingApi;
+import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoRemoverUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoDeleter;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoDurationFetcher;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
@@ -41,6 +43,7 @@ public class GuiceModule_YouTubeDataApiLib
 		bind(PlaylistVideoCountFetcher.class).to(PlaylistVideoCountFetcherUsingApi.class);
 		bind(PlaylistVideoIdsFetcher.class).to(PlaylistVideoIdsFetcherUsingApi.class);
 		bind(PlaylistVideoInserter.class).to(PlaylistVideoInserterUsingApi.class);
+		bind(PlaylistVideoRemover.class).to(PlaylistVideoRemoverUsingApi.class);
 		
 		bind(VideoDeleter.class).to(VideoDeleterUsingApi.class);
 		bind(VideoThumbnailUploader.class).to(VideoThumbnailUploaderUsingApi.class);
