@@ -13,10 +13,12 @@ import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistIdFetcherU
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoCountFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoIdsFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoInserterUsingApi;
+import io.domisum.lib.youtubeapilib.data.video.actors.VideoDeleter;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoDurationFetcher;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataSetter;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoPrivacyStatusSetter;
+import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoDeleterUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoDurationFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoMetadataFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoMetadataSetterUsingApi;
@@ -40,6 +42,7 @@ public class GuiceModule_YouTubeDataApiLib
 		bind(PlaylistVideoIdsFetcher.class).to(PlaylistVideoIdsFetcherUsingApi.class);
 		bind(PlaylistVideoInserter.class).to(PlaylistVideoInserterUsingApi.class);
 		
+		bind(VideoDeleter.class).to(VideoDeleterUsingApi.class);
 		bind(VideoThumbnailUploader.class).to(VideoThumbnailUploaderUsingApi.class);
 		bind(VideoUploader.class).to(VideoUploaderUsingApi.class);
 		bind(VideoDurationFetcher.class).to(VideoDurationFetcherUsingApi.class);
