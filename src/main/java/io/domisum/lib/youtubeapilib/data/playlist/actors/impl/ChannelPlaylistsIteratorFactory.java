@@ -1,4 +1,4 @@
-package io.domisum.lib.youtubeapilib.data.playlist.actors;
+package io.domisum.lib.youtubeapilib.data.playlist.actors.impl;
 
 import com.google.api.services.youtube.model.Playlist;
 import com.google.inject.Inject;

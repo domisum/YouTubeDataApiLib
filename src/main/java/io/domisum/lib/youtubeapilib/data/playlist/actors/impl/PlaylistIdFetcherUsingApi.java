@@ -3,7 +3,6 @@ package io.domisum.lib.youtubeapilib.data.playlist.actors.impl;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.ChannelPlaylistsIteratorFactory;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistIdFetcher;
 import lombok.RequiredArgsConstructor;
 
