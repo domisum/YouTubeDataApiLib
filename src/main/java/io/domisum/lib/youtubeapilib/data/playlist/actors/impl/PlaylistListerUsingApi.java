@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistLister;
+import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.iterator.ChannelPlaylistsIteratorFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;

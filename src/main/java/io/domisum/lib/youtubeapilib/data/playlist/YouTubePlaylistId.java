@@ -17,10 +17,21 @@ public final class YouTubePlaylistId
 	public static YouTubePlaylistId of(String youTubePlaylistIdString)
 	{
 		validate(youTubePlaylistIdString);
-		
-		var youTubePlaylistId = new YouTubePlaylistId(youTubePlaylistIdString);
-		return youTubePlaylistId;
+		return new YouTubePlaylistId(youTubePlaylistIdString);
 	}
+	
+	public static YouTubePlaylistId uploadsOfChannel(String channelId)
+	{
+		String channelPrefix = "UC";
+		if(!channelId.startsWith(channelPrefix))
+			throw new IllegalArgumentException(PHR.r("The channelId has to start with '{}'", channelPrefix));
+		
+		String channelIdWithoutTypePrefix = channelId.substring(channelPrefix.length());
+		String youTubePlaylistId = "UU"+channelIdWithoutTypePrefix;
+		validate(youTubePlaylistId);
+		return new YouTubePlaylistId(youTubePlaylistId);
+	}
+	
 	
 	private static void validate(String youTubePlaylistIdString)
 	{
