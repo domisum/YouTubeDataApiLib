@@ -1,10 +1,11 @@
 package io.domisum.lib.youtubeapilib.data.playlist.actors.impl.iterator;
 
-import com.google.api.services.youtube.model.Video;
+import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.inject.Inject;
 import io.domisum.lib.auxiliumlib.datacontainers.tuple.Pair;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
+import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class ChannelVideosIteratorFactory
+public class ChannelUploadPlaylistIteratorFactory
 {
 	
 	// CONSTANTS
@@ -23,30 +24,32 @@ public class ChannelVideosIteratorFactory
 	
 	
 	// FACTORY
-	public ChannelVideosIterator create(YouTubeApiCredentials youTubeApiCredentials, String part)
+	public ChannelVideosIterator create(YouTubeApiCredentials youTubeApiCredentials, String channelId, String part)
 	{
-		return new ChannelVideosIterator(youTubeApiCredentials, part);
+		return new ChannelVideosIterator(youTubeApiCredentials, channelId,  part);
 	}
 	
 	
 	// ITERATOR
 	@RequiredArgsConstructor
 	public class ChannelVideosIterator
-		extends PagedItemsIterator<Video>
+		extends PagedItemsIterator<PlaylistItem>
 	{
 		
 		// INPUT
 		private final YouTubeApiCredentials credentials;
+		private final String channelId;
 		private final String part;
 		
 		
 		// FETCH
 		@Override
-		protected Pair<Set<Video>, String> fetchNextPage(String pageToken)
+		protected Pair<Set<PlaylistItem>, String> fetchNextPage(String pageToken)
 			throws IOException
 		{
 			var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
-			var listRequest = youTubeDataApiClient.videos().list(part);
+			var listRequest = youTubeDataApiClient.playlistItems().list(part);
+			listRequest.setPlaylistId(YouTubePlaylistId.uploadsOfChannel(channelId).toString());
 			listRequest.setMaxResults(MAX_RESULTS_LIMIT);
 			if(pageToken != null)
 				listRequest.setPageToken(pageToken);
