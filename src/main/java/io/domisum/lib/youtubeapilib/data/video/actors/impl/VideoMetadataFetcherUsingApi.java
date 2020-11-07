@@ -42,9 +42,7 @@ public class VideoMetadataFetcherUsingApi
 		String categoryIdString = video.getSnippet().getCategoryId();
 		var videoCategory = VideoCategory.fromCategoryId(Integer.parseInt(categoryIdString));
 		
-		var youTubeVideoMetadata = new YouTubeVideoMetadata(title, description, tags, videoCategory);
-		
-		return youTubeVideoMetadata;
+		return new YouTubeVideoMetadata(title, description, tags, videoCategory);
 	}
 	
 }

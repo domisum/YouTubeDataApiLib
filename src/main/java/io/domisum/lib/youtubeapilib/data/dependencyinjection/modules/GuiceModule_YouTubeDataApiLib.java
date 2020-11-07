@@ -21,11 +21,13 @@ import io.domisum.lib.youtubeapilib.data.video.actors.VideoDeleter;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoDurationFetcher;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataSetter;
+import io.domisum.lib.youtubeapilib.data.video.actors.VideoPrivacyStatusFetcher;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoPrivacyStatusSetter;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoDeleterUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoDurationFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoMetadataFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoMetadataSetterUsingApi;
+import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoPrivacyStatusFetcherUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoPrivacyStatusSetterUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.upload.VideoThumbnailUploaderUsingApi;
 import io.domisum.lib.youtubeapilib.data.video.actors.impl.upload.VideoUploaderUsingApi;
@@ -54,6 +56,7 @@ public class GuiceModule_YouTubeDataApiLib
 		bind(VideoDurationFetcher.class).to(VideoDurationFetcherUsingApi.class);
 		bind(VideoMetadataFetcher.class).to(VideoMetadataFetcherUsingApi.class);
 		bind(VideoMetadataSetter.class).to(VideoMetadataSetterUsingApi.class);
+		bind(VideoPrivacyStatusFetcher.class).to(VideoPrivacyStatusFetcherUsingApi.class);
 		bind(VideoPrivacyStatusSetter.class).to(VideoPrivacyStatusSetterUsingApi.class);
 	}
 	

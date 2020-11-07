@@ -14,7 +14,7 @@ public enum PrivacyStatus
 			if(privacyStatus.name().equalsIgnoreCase(privacyStatusString))
 				return privacyStatus;
 		
-		throw new IllegalArgumentException("no privacy status equal to '"+privacyStatusString+"'");
+		throw new IllegalArgumentException("No privacy status equal to '"+privacyStatusString+"'");
 	}
 	
 }
