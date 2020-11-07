@@ -1,15 +1,14 @@
 package io.domisum.lib.youtubeapilib.data.playlist.actors.impl;
 
-import com.google.api.services.youtube.YouTube.PlaylistItems;
-import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
-import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoIdsFetcher;
+import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.iterator.PlaylistItemIteratorFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +17,8 @@ public class PlaylistVideoIdsFetcherUsingApi
 	implements PlaylistVideoIdsFetcher
 {
 	
-	// CONSTANTS
-	private static final long MAX_RESULTS_LIMIT = 50L;
-	
 	// DEPENDENCIES
-	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
+	private final PlaylistItemIteratorFactory playlistItemIteratorFactory;
 	
 	
 	// UPLOAD
@@ -31,45 +27,28 @@ public class PlaylistVideoIdsFetcherUsingApi
 		throws IOException
 	{
 		int maxNrOfVideosInt = maxNrOfVideos == null ? Integer.MAX_VALUE : maxNrOfVideos;
-		
-		var listRequest = createBaseRequest(credentials, youTubePlaylistId);
-		var videoIds = fetchVideoIdsUsingRequest(listRequest, maxNrOfVideosInt);
-		
-		return videoIds;
-	}
-	
-	private List<String> fetchVideoIdsUsingRequest(PlaylistItems.List listRequest, int maxNrOfVideos)
-		throws IOException
-	{
-		PlaylistItemListResponse response;
 		var videoIds = new ArrayList<String>();
-		do
+		
+		try
 		{
-			response = listRequest.execute();
-			for(var item : response.getItems())
-				videoIds.add(item.getContentDetails().getVideoId());
-			
-			listRequest.setPageToken(response.getNextPageToken());
+			var iterator = playlistItemIteratorFactory.create(credentials, youTubePlaylistId, "contentDetails");
+			while(iterator.hasNext() && videoIds.size() < maxNrOfVideosInt)
+			{
+				var playlistItem = iterator.next();
+				String videoId = playlistItem.getContentDetails().getVideoId();
+				videoIds.add(videoId);
+			}
 		}
-		while((response.getNextPageToken() != null) && (videoIds.size() < maxNrOfVideos));
+		catch(UncheckedIOException e)
+		{
+			throw e.getCause();
+		}
 		
 		// remove excessive videos ids to exactly match requested number of videos
-		while(videoIds.size() > maxNrOfVideos)
+		while(videoIds.size() > maxNrOfVideosInt)
 			videoIds.remove(videoIds.size()-1);
 		
 		return videoIds;
-	}
-	
-	private PlaylistItems.List createBaseRequest(YouTubeApiCredentials credentials, YouTubePlaylistId youTubePlaylistId)
-		throws IOException
-	{
-		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
-		
-		var listRequest = youTubeDataApiClient.playlistItems().list("snippet,contentDetails");
-		listRequest.setMaxResults(MAX_RESULTS_LIMIT);
-		listRequest.setPlaylistId(youTubePlaylistId.toString());
-		
-		return listRequest;
 	}
 	
 }

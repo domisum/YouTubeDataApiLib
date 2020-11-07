@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class ChannelUploadPlaylistIteratorFactory
+public class PlaylistItemIteratorFactory
 {
 	
 	// CONSTANTS
@@ -24,9 +24,9 @@ public class ChannelUploadPlaylistIteratorFactory
 	
 	
 	// FACTORY
-	public ChannelVideosIterator create(YouTubeApiCredentials youTubeApiCredentials, String channelId, String part)
+	public ChannelVideosIterator create(YouTubeApiCredentials youTubeApiCredentials, YouTubePlaylistId playlistId, String part)
 	{
-		return new ChannelVideosIterator(youTubeApiCredentials, channelId,  part);
+		return new ChannelVideosIterator(youTubeApiCredentials, playlistId, part);
 	}
 	
 	
@@ -38,7 +38,7 @@ public class ChannelUploadPlaylistIteratorFactory
 		
 		// INPUT
 		private final YouTubeApiCredentials credentials;
-		private final String channelId;
+		private final YouTubePlaylistId playlistId;
 		private final String part;
 		
 		
@@ -49,7 +49,7 @@ public class ChannelUploadPlaylistIteratorFactory
 		{
 			var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
 			var listRequest = youTubeDataApiClient.playlistItems().list(part);
-			listRequest.setPlaylistId(YouTubePlaylistId.uploadsOfChannel(channelId).toString());
+			listRequest.setPlaylistId(playlistId.toString());
 			listRequest.setMaxResults(MAX_RESULTS_LIMIT);
 			if(pageToken != null)
 				listRequest.setPageToken(pageToken);
