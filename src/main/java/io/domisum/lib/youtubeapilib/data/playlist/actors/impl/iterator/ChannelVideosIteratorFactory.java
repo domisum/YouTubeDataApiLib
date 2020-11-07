@@ -23,9 +23,9 @@ public class ChannelVideosIteratorFactory
 	
 	
 	// FACTORY
-	public ChannelVideosIterator create(YouTubeApiCredentials youTubeApiCredentials)
+	public ChannelVideosIterator create(YouTubeApiCredentials youTubeApiCredentials, String part)
 	{
-		return new ChannelVideosIterator(youTubeApiCredentials);
+		return new ChannelVideosIterator(youTubeApiCredentials, part);
 	}
 	
 	
@@ -37,6 +37,7 @@ public class ChannelVideosIteratorFactory
 		
 		// INPUT
 		private final YouTubeApiCredentials credentials;
+		private final String part;
 		
 		
 		// FETCH
@@ -45,7 +46,7 @@ public class ChannelVideosIteratorFactory
 			throws IOException
 		{
 			var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
-			var listRequest = youTubeDataApiClient.videos().list("snippet,contentDetails");
+			var listRequest = youTubeDataApiClient.videos().list(part);
 			listRequest.setMaxResults(MAX_RESULTS_LIMIT);
 			if(pageToken != null)
 				listRequest.setPageToken(pageToken);
