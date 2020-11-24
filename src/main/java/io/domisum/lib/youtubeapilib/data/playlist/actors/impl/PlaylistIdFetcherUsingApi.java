@@ -35,15 +35,15 @@ public class PlaylistIdFetcherUsingApi
 		}
 	}
 	
-	private Optional<YouTubePlaylistId> fetchUncaught(YouTubeApiCredentials credentials, String playlistTitle)
+	private Optional<YouTubePlaylistId> fetchUncaught(YouTubeApiCredentials credentials, String searchedPlaylistTitle)
 	{
 		var iterator = channelPlaylistsIteratorFactory.create(credentials);
 		while(iterator.hasNext())
 		{
-			var playlist = iterator.next();
-			if(playlist.getSnippet().getTitle().equals(playlistTitle))
+			var p = iterator.next();
+			if(searchedPlaylistTitle.equals(p.getSnippet().getTitle()))
 			{
-				var youTubePlaylistId = YouTubePlaylistId.of(playlist.getId());
+				var youTubePlaylistId = YouTubePlaylistId.of(p.getId());
 				return Optional.of(youTubePlaylistId);
 			}
 		}

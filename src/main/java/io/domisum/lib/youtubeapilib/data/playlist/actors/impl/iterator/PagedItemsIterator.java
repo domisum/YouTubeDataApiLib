@@ -16,9 +16,10 @@ public abstract class PagedItemsIterator<T>
 {
 	
 	// STATUS
-	private String nextPageToken = null;
-	private boolean done = false;
 	private final Queue<T> items = new LinkedList<>();
+	
+	private String nextPageToken = null;
+	private boolean fetchDone = false;
 	
 	
 	// ITERATOR
@@ -26,10 +27,10 @@ public abstract class PagedItemsIterator<T>
 	public boolean hasNext()
 		throws UncheckedIOException
 	{
-		if(done)
-			return false;
 		if(items.size() > 0)
 			return true;
+		if(fetchDone)
+			return false;
 		
 		fetchAndPutNextPage();
 		return items.size() > 0;
@@ -39,7 +40,7 @@ public abstract class PagedItemsIterator<T>
 	public T next()
 		throws UncheckedIOException
 	{
-		if(items.isEmpty() && !done)
+		if(items.isEmpty() && !fetchDone)
 			fetchAndPutNextPage();
 		
 		return items.remove();
@@ -49,7 +50,7 @@ public abstract class PagedItemsIterator<T>
 	{
 		try
 		{
-			fetchNextPageUncaught();
+			fetchAndPutNextPageUncaught();
 		}
 		catch(IOException e)
 		{
@@ -57,7 +58,7 @@ public abstract class PagedItemsIterator<T>
 		}
 	}
 	
-	private void fetchNextPageUncaught()
+	private void fetchAndPutNextPageUncaught()
 		throws IOException
 	{
 		var page = fetchNextPage(nextPageToken);
@@ -65,7 +66,7 @@ public abstract class PagedItemsIterator<T>
 		
 		nextPageToken = page.getB();
 		if(nextPageToken == null)
-			done = true;
+			fetchDone = true;
 	}
 	
 	protected abstract Pair<Set<T>,String> fetchNextPage(String pageToken)

@@ -16,7 +16,7 @@ public class ChannelPlaylistsIteratorFactory
 {
 	
 	// CONSTANTS
-	private static final long MAX_RESULTS_LIMIT = 50L;
+	private static final long MAX_RESULTS_LIMIT = 30L;
 	
 	// REFERENCES
 	private final AuthorizedYouTubeDataApiClientSource authorizedYouTubeDataApiClientSource;
@@ -52,9 +52,10 @@ public class ChannelPlaylistsIteratorFactory
 				listRequest.setPageToken(pageToken);
 			
 			var response = listRequest.execute();
-			var items = new HashSet<>(response.getItems());
 			
-			return new Pair<>(items, response.getNextPageToken());
+			var items = new HashSet<>(response.getItems());
+			String nextPageToken = response.getNextPageToken();
+			return new Pair<>(items, nextPageToken);
 		}
 		
 	}
