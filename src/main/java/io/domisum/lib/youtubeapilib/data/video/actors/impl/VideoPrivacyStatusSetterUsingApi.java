@@ -42,8 +42,7 @@ public class VideoPrivacyStatusSetterUsingApi
 		status.setPrivacyStatus(privacyStatus.name());
 		video.setStatus(status);
 		
-		var update = youTubeDataApiClient.videos().update("status", video);
-		return update;
+		return youTubeDataApiClient.videos().update("status", video);
 	}
 	
 }

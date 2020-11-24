@@ -57,9 +57,7 @@ public class PlaylistCreatorUsingApi
 		throws IOException
 	{
 		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
-		
-		var insert = youTubeDataApiClient.playlists().insert("snippet,status", playlist);
-		return insert;
+		return youTubeDataApiClient.playlists().insert("snippet,status", playlist);
 	}
 	
 }

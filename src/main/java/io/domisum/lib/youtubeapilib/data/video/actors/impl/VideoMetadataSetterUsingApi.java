@@ -33,14 +33,12 @@ public class VideoMetadataSetterUsingApi
 	private Update createRequest(YouTubeApiCredentials credentials, String videoId, YouTubeVideoMetadata metadata)
 		throws IOException
 	{
-		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
-		
 		var video = new Video();
 		video.setId(videoId);
 		video.setSnippet(createVideoSnippet(metadata));
-		var update = youTubeDataApiClient.videos().update("snippet", video);
 		
-		return update;
+		var youTubeDataApiClient = authorizedYouTubeDataApiClientSource.getFor(credentials);
+		return youTubeDataApiClient.videos().update("snippet", video);
 	}
 	
 	private VideoSnippet createVideoSnippet(YouTubeVideoMetadata metadata)
