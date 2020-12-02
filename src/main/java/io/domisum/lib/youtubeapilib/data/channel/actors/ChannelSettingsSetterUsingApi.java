@@ -29,7 +29,7 @@ public class ChannelSettingsSetterUsingApi
 		
 		var brandingSettings = fetchCurrentBrandingSettings(youTube, channelId);
 		applyNewSettings(newSettings, brandingSettings);
-		setBrandingSettings(youTube, brandingSettings);
+		setBrandingSettings(youTube, channelId, brandingSettings);
 	}
 	
 	private ChannelBrandingSettings fetchCurrentBrandingSettings(YouTube youTube, String channelId)
@@ -62,10 +62,11 @@ public class ChannelSettingsSetterUsingApi
 		}
 	}
 	
-	private void setBrandingSettings(YouTube youTube, ChannelBrandingSettings brandingSettings)
+	private void setBrandingSettings(YouTube youTube, String channelId, ChannelBrandingSettings brandingSettings)
 		throws IOException
 	{
 		var channel = new Channel();
+		channel.setId(channelId);
 		channel.setBrandingSettings(brandingSettings);
 		
 		var update = youTube.channels().update("brandingSettings", channel);
