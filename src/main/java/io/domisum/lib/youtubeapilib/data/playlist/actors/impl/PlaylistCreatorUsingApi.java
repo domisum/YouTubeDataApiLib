@@ -7,8 +7,8 @@ import com.google.api.services.youtube.model.PlaylistStatus;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
+import io.domisum.lib.youtubeapilib.data.playlist.YdaPlaylistSpecification;
 import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistId;
-import io.domisum.lib.youtubeapilib.data.playlist.YouTubePlaylistSpecification;
 import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistCreator;
 import lombok.RequiredArgsConstructor;
 
@@ -25,10 +25,10 @@ public class PlaylistCreatorUsingApi
 	
 	// UPLOAD
 	@Override
-	public YouTubePlaylistId create(YouTubeApiCredentials credentials, YouTubePlaylistSpecification youTubePlaylistSpecification)
+	public YouTubePlaylistId create(YouTubeApiCredentials credentials, YdaPlaylistSpecification ydaPlaylistSpecification)
 		throws IOException
 	{
-		var playlist = createRequestPlaylist(youTubePlaylistSpecification);
+		var playlist = createRequestPlaylist(ydaPlaylistSpecification);
 		
 		var playlistsInsertRequest = createInsertRequest(credentials, playlist);
 		var response = playlistsInsertRequest.execute();
@@ -38,7 +38,7 @@ public class PlaylistCreatorUsingApi
 		return youTubePlaylistId;
 	}
 	
-	private Playlist createRequestPlaylist(YouTubePlaylistSpecification youTubePlaylistSpec)
+	private Playlist createRequestPlaylist(YdaPlaylistSpecification youTubePlaylistSpec)
 	{
 		var playlist = new Playlist();
 		

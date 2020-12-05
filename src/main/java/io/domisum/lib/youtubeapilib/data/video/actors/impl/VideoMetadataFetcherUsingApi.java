@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.data.video.VideoCategory;
-import io.domisum.lib.youtubeapilib.data.video.YouTubeVideoMetadata;
+import io.domisum.lib.youtubeapilib.data.video.YdaVideoMetadata;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class VideoMetadataFetcherUsingApi
 	
 	// FETCH
 	@Override
-	public YouTubeVideoMetadata fetch(YouTubeApiCredentials credentials, String videoId)
+	public YdaVideoMetadata fetch(YouTubeApiCredentials credentials, String videoId)
 		throws IOException
 	{
 		var video = fetchVideo("snippet", credentials, videoId);
@@ -35,7 +35,7 @@ public class VideoMetadataFetcherUsingApi
 		String categoryIdString = video.getSnippet().getCategoryId();
 		var videoCategory = VideoCategory.fromCategoryId(Integer.parseInt(categoryIdString));
 		
-		return new YouTubeVideoMetadata(title, description, tags, videoCategory);
+		return new YdaVideoMetadata(title, description, tags, videoCategory);
 	}
 	
 }

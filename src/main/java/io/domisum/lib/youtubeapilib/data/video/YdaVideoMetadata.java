@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.List;
 
 @ToString(of = {"title"})
-public class YouTubeVideoMetadata
+public class YdaVideoMetadata
 {
 	
 	// CONSTANTS
@@ -31,7 +31,7 @@ public class YouTubeVideoMetadata
 	
 	
 	// INIT
-	public YouTubeVideoMetadata(String title, String description, List<String> tags, VideoCategory category)
+	public YdaVideoMetadata(String title, String description, List<String> tags, VideoCategory category)
 	{
 		this.title = title;
 		this.description = description;

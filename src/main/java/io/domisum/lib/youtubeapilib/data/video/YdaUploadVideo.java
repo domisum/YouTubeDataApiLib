@@ -6,12 +6,12 @@ import lombok.ToString;
 
 @RequiredArgsConstructor
 @ToString(includeFieldNames = false, exclude = {"videoStream"})
-public class YouTubeUploadVideo
+public class YdaUploadVideo
 {
 	
 	@Getter
 	private final VideoStream videoStream;
 	@Getter
-	private final YouTubeVideoMetadata metadata;
+	private final YdaVideoMetadata metadata;
 	
 }

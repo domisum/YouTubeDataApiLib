@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
 import io.domisum.lib.youtubeapilib.data.PrivacyStatus;
-import io.domisum.lib.youtubeapilib.data.video.YouTubeUploadVideo;
+import io.domisum.lib.youtubeapilib.data.video.YdaUploadVideo;
 import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoUploader;
 import lombok.RequiredArgsConstructor;
 
@@ -27,17 +27,17 @@ public class VideoUploaderUsingApi
 	
 	// UPLOAD
 	@Override
-	public String upload(YouTubeApiCredentials credentials, YouTubeUploadVideo youTubeUploadVideo, PrivacyStatus privacyStatus)
+	public String upload(YouTubeApiCredentials credentials, YdaUploadVideo ydaUploadVideo, PrivacyStatus privacyStatus)
 		throws IOException
 	{
-		logger.info("Preparing to upload '{}' to YouTube ({})", youTubeUploadVideo, privacyStatus);
+		logger.info("Preparing to upload '{}' to YouTube ({})", ydaUploadVideo, privacyStatus);
 		
-		try(var videoInputStream = youTubeUploadVideo.getVideoStream().getInputStream())
+		try(var videoInputStream = ydaUploadVideo.getVideoStream().getInputStream())
 		{
 			var videoContent = new InputStreamContent("video/*", videoInputStream);
-			videoContent.setLength(youTubeUploadVideo.getVideoStream().getLength());
+			videoContent.setLength(ydaUploadVideo.getVideoStream().getLength());
 			
-			var videoToUploadSettings = buildVideoToUploadSettings(youTubeUploadVideo, privacyStatus);
+			var videoToUploadSettings = buildVideoToUploadSettings(ydaUploadVideo, privacyStatus);
 			
 			logger.info("Starting video upload...");
 			var uploadRequest = createUploadRequest(credentials, videoContent, videoToUploadSettings);
@@ -50,11 +50,11 @@ public class VideoUploaderUsingApi
 	
 	
 	// VIDEO METADATA
-	private Video buildVideoToUploadSettings(YouTubeUploadVideo youTubeUploadVideo, PrivacyStatus privacyStatus)
+	private Video buildVideoToUploadSettings(YdaUploadVideo ydaUploadVideo, PrivacyStatus privacyStatus)
 	{
 		var videoToUpload = new Video();
 		
-		videoToUpload.setSnippet(createVideoSnippet(youTubeUploadVideo));
+		videoToUpload.setSnippet(createVideoSnippet(ydaUploadVideo));
 		videoToUpload.setStatus(createVideoStatus(privacyStatus));
 		
 		return videoToUpload;
@@ -67,9 +67,9 @@ public class VideoUploaderUsingApi
 		return status;
 	}
 	
-	private VideoSnippet createVideoSnippet(YouTubeUploadVideo youTubeUploadVideo)
+	private VideoSnippet createVideoSnippet(YdaUploadVideo ydaUploadVideo)
 	{
-		var youTubeVideoMetadata = youTubeUploadVideo.getMetadata();
+		var youTubeVideoMetadata = ydaUploadVideo.getMetadata();
 		
 		var snippet = new VideoSnippet();
 		snippet.setTitle(youTubeVideoMetadata.getTitle());

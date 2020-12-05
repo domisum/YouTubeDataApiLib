@@ -6,7 +6,7 @@ import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
-import io.domisum.lib.youtubeapilib.data.video.YouTubeVideoMetadata;
+import io.domisum.lib.youtubeapilib.data.video.YdaVideoMetadata;
 import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataSetter;
 import lombok.RequiredArgsConstructor;
 
@@ -23,14 +23,14 @@ public class VideoMetadataSetterUsingApi
 	
 	// SET
 	@Override
-	public void setMetadata(YouTubeApiCredentials credentials, String videoId, YouTubeVideoMetadata metadata)
+	public void setMetadata(YouTubeApiCredentials credentials, String videoId, YdaVideoMetadata metadata)
 		throws IOException
 	{
 		var videosUpdateRequest = createRequest(credentials, videoId, metadata);
 		videosUpdateRequest.execute();
 	}
 	
-	private Update createRequest(YouTubeApiCredentials credentials, String videoId, YouTubeVideoMetadata metadata)
+	private Update createRequest(YouTubeApiCredentials credentials, String videoId, YdaVideoMetadata metadata)
 		throws IOException
 	{
 		var video = new Video();
@@ -41,7 +41,7 @@ public class VideoMetadataSetterUsingApi
 		return youTubeDataApiClient.videos().update("snippet", video);
 	}
 	
-	private VideoSnippet createVideoSnippet(YouTubeVideoMetadata metadata)
+	private VideoSnippet createVideoSnippet(YdaVideoMetadata metadata)
 	{
 		var snippet = new VideoSnippet();
 		snippet.setTitle(metadata.getTitle());
