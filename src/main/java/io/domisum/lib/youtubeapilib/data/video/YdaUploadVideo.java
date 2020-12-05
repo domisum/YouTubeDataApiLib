@@ -12,6 +12,6 @@ public class YdaUploadVideo
 	@Getter
 	private final VideoStream videoStream;
 	@Getter
-	private final YdaVideoMetadata metadata;
+	private final YouTubeVideoMetadata metadata;
 	
 }
