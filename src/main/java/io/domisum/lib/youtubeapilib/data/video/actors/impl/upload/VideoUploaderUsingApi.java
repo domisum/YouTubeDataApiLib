@@ -64,6 +64,7 @@ public class VideoUploaderUsingApi
 	{
 		var status = new VideoStatus();
 		status.setPrivacyStatus(privacyStatus.name());
+		status.setLicense("creativeCommon");
 		return status;
 	}
 	
