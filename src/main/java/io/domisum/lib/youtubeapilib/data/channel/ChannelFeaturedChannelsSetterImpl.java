@@ -2,6 +2,7 @@ package io.domisum.lib.youtubeapilib.data.channel;
 
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelBrandingSettings;
+import com.google.api.services.youtube.model.ChannelSettings;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
@@ -36,12 +37,12 @@ public class ChannelFeaturedChannelsSetterImpl
 	
 	private ChannelBrandingSettings buildBrandingSettings(FeaturedChannels featuredChannels)
 	{
-		var brandingSettings = new ChannelBrandingSettings();
-		
-		var channel = brandingSettings.getChannel();
+		var channel = new ChannelSettings();
 		channel.setFeaturedChannelsTitle(featuredChannels.getTitle());
 		channel.setFeaturedChannelsUrls(featuredChannels.getChannelIds());
 		
+		var brandingSettings = new ChannelBrandingSettings();
+		brandingSettings.setChannel(channel);
 		return brandingSettings;
 	}
 	
