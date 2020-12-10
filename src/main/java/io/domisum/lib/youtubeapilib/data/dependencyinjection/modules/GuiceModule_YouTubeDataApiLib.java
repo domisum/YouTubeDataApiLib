@@ -1,38 +1,38 @@
 package io.domisum.lib.youtubeapilib.data.dependencyinjection.modules;
 
 import com.google.inject.AbstractModule;
-import io.domisum.lib.youtubeapilib.data.channel.actors.ChannelFeaturedChannelsSetter;
-import io.domisum.lib.youtubeapilib.data.channel.actors.ChannelFeaturedChannelsSetterUsingApi;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistCreator;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistDeleter;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistIdFetcher;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistLister;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoIdsFetcher;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.PlaylistVideoInserter;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistCreatorUsingApi;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistDeleterUsingApi;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistIdFetcherUsingApi;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistListerUsingApi;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoIdsFetcherUsingApi;
-import io.domisum.lib.youtubeapilib.data.playlist.actors.impl.PlaylistVideoInserterUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoDefinitionFetcher;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoDeleter;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoDurationFetcher;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataFetcher;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoMetadataSetter;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoPrivacyStatusFetcher;
-import io.domisum.lib.youtubeapilib.data.video.actors.VideoPrivacyStatusSetter;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoDefinitionFetcherUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoDeleterUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoDurationFetcherUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoMetadataFetcherUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoMetadataSetterUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoPrivacyStatusFetcherUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.VideoPrivacyStatusSetterUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.upload.VideoThumbnailUploaderUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.impl.upload.VideoUploaderUsingApi;
-import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoThumbnailUploader;
-import io.domisum.lib.youtubeapilib.data.video.actors.upload.VideoUploader;
+import io.domisum.lib.youtubeapilib.data.channel.ChannelFeaturedChannelsSetter;
+import io.domisum.lib.youtubeapilib.data.channel.ChannelFeaturedChannelsSetterImpl;
+import io.domisum.lib.youtubeapilib.data.playlist.PlaylistCreator;
+import io.domisum.lib.youtubeapilib.data.playlist.PlaylistCreatorImpl;
+import io.domisum.lib.youtubeapilib.data.playlist.PlaylistDeleter;
+import io.domisum.lib.youtubeapilib.data.playlist.PlaylistDeleterImpl;
+import io.domisum.lib.youtubeapilib.data.playlist.PlaylistIdFetcher;
+import io.domisum.lib.youtubeapilib.data.playlist.PlaylistIdFetcherImpl;
+import io.domisum.lib.youtubeapilib.data.playlist.item.PlaylistLister;
+import io.domisum.lib.youtubeapilib.data.playlist.item.PlaylistListerImpl;
+import io.domisum.lib.youtubeapilib.data.playlist.item.PlaylistVideoIdsFetcher;
+import io.domisum.lib.youtubeapilib.data.playlist.item.PlaylistVideoIdsFetcherImpl;
+import io.domisum.lib.youtubeapilib.data.playlist.item.PlaylistVideoInserter;
+import io.domisum.lib.youtubeapilib.data.playlist.item.PlaylistVideoInserterImpl;
+import io.domisum.lib.youtubeapilib.data.video.VideoDeleter;
+import io.domisum.lib.youtubeapilib.data.video.VideoDeleterImpl;
+import io.domisum.lib.youtubeapilib.data.video.VideoMetadataSetter;
+import io.domisum.lib.youtubeapilib.data.video.VideoMetadataSetterImpl;
+import io.domisum.lib.youtubeapilib.data.video.VideoPrivacyStatusSetter;
+import io.domisum.lib.youtubeapilib.data.video.VideoPrivacyStatusSetterImpl;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoDefinitionFetcher;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoDefinitionFetcherImpl;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoDurationFetcher;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoDurationFetcherImpl;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoMetadataFetcher;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoMetadataFetcherImpl;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoPrivacyStatusFetcher;
+import io.domisum.lib.youtubeapilib.data.video.fetchinfo.VideoPrivacyStatusFetcherImpl;
+import io.domisum.lib.youtubeapilib.data.video.upload.VideoThumbnailUploader;
+import io.domisum.lib.youtubeapilib.data.video.upload.VideoThumbnailUploaderImpl;
+import io.domisum.lib.youtubeapilib.data.video.upload.VideoUploader;
+import io.domisum.lib.youtubeapilib.data.video.upload.VideoUploaderImpl;
 
 public class GuiceModule_YouTubeDataApiLib
 	extends AbstractModule
@@ -41,24 +41,24 @@ public class GuiceModule_YouTubeDataApiLib
 	@Override
 	protected void configure()
 	{
-		bind(ChannelFeaturedChannelsSetter.class).to(ChannelFeaturedChannelsSetterUsingApi.class);
+		bind(ChannelFeaturedChannelsSetter.class).to(ChannelFeaturedChannelsSetterImpl.class);
 		
-		bind(PlaylistCreator.class).to(PlaylistCreatorUsingApi.class);
-		bind(PlaylistDeleter.class).to(PlaylistDeleterUsingApi.class);
-		bind(PlaylistIdFetcher.class).to(PlaylistIdFetcherUsingApi.class);
-		bind(PlaylistLister.class).to(PlaylistListerUsingApi.class);
-		bind(PlaylistVideoIdsFetcher.class).to(PlaylistVideoIdsFetcherUsingApi.class);
-		bind(PlaylistVideoInserter.class).to(PlaylistVideoInserterUsingApi.class);
+		bind(PlaylistCreator.class).to(PlaylistCreatorImpl.class);
+		bind(PlaylistDeleter.class).to(PlaylistDeleterImpl.class);
+		bind(PlaylistIdFetcher.class).to(PlaylistIdFetcherImpl.class);
+		bind(PlaylistLister.class).to(PlaylistListerImpl.class);
+		bind(PlaylistVideoIdsFetcher.class).to(PlaylistVideoIdsFetcherImpl.class);
+		bind(PlaylistVideoInserter.class).to(PlaylistVideoInserterImpl.class);
 		
-		bind(VideoDefinitionFetcher.class).to(VideoDefinitionFetcherUsingApi.class);
-		bind(VideoDeleter.class).to(VideoDeleterUsingApi.class);
-		bind(VideoThumbnailUploader.class).to(VideoThumbnailUploaderUsingApi.class);
-		bind(VideoUploader.class).to(VideoUploaderUsingApi.class);
-		bind(VideoDurationFetcher.class).to(VideoDurationFetcherUsingApi.class);
-		bind(VideoMetadataFetcher.class).to(VideoMetadataFetcherUsingApi.class);
-		bind(VideoMetadataSetter.class).to(VideoMetadataSetterUsingApi.class);
-		bind(VideoPrivacyStatusFetcher.class).to(VideoPrivacyStatusFetcherUsingApi.class);
-		bind(VideoPrivacyStatusSetter.class).to(VideoPrivacyStatusSetterUsingApi.class);
+		bind(VideoDefinitionFetcher.class).to(VideoDefinitionFetcherImpl.class);
+		bind(VideoDeleter.class).to(VideoDeleterImpl.class);
+		bind(VideoThumbnailUploader.class).to(VideoThumbnailUploaderImpl.class);
+		bind(VideoUploader.class).to(VideoUploaderImpl.class);
+		bind(VideoDurationFetcher.class).to(VideoDurationFetcherImpl.class);
+		bind(VideoMetadataFetcher.class).to(VideoMetadataFetcherImpl.class);
+		bind(VideoMetadataSetter.class).to(VideoMetadataSetterImpl.class);
+		bind(VideoPrivacyStatusFetcher.class).to(VideoPrivacyStatusFetcherImpl.class);
+		bind(VideoPrivacyStatusSetter.class).to(VideoPrivacyStatusSetterImpl.class);
 	}
 	
 }
