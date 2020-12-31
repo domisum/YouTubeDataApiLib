@@ -4,7 +4,7 @@ import com.google.api.services.youtube.model.Video;
 import com.google.inject.Inject;
 import io.domisum.lib.youtubeapilib.YouTubeApiCredentials;
 import io.domisum.lib.youtubeapilib.data.AuthorizedYouTubeDataApiClientSource;
-import io.domisum.lib.youtubeapilib.data.video.VideoDoesNotExistException;
+import io.domisum.lib.youtubeapilib.data.video.model.VideoDoesNotExistException;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public abstract class VideoInfoFetcher
 		
 		var responseItems = response.getItems();
 		if(responseItems.isEmpty())
-			throw new VideoDoesNotExistException(videoId);
+			throw VideoDoesNotExistException.ofVideoId(videoId);
 		return responseItems.get(0);
 	}
 	
