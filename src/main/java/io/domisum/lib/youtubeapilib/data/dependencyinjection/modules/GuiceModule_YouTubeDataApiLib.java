@@ -1,8 +1,6 @@
 package io.domisum.lib.youtubeapilib.data.dependencyinjection.modules;
 
 import com.google.inject.AbstractModule;
-import io.domisum.lib.youtubeapilib.data.channel.ChannelFeaturedChannelsSetter;
-import io.domisum.lib.youtubeapilib.data.channel.ChannelFeaturedChannelsSetterImpl;
 import io.domisum.lib.youtubeapilib.data.playlist.PlaylistCreator;
 import io.domisum.lib.youtubeapilib.data.playlist.PlaylistCreatorImpl;
 import io.domisum.lib.youtubeapilib.data.playlist.PlaylistDeleter;
@@ -41,8 +39,6 @@ public class GuiceModule_YouTubeDataApiLib
 	@Override
 	protected void configure()
 	{
-		bind(ChannelFeaturedChannelsSetter.class).to(ChannelFeaturedChannelsSetterImpl.class);
-		
 		bind(PlaylistCreator.class).to(PlaylistCreatorImpl.class);
 		bind(PlaylistDeleter.class).to(PlaylistDeleterImpl.class);
 		bind(PlaylistIdFetcher.class).to(PlaylistIdFetcherImpl.class);
